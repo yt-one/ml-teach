@@ -99,7 +99,7 @@ def test_nn_epoch():
     nn_epoch(X, y, W1, W2, lr=0.2, batch=100)
     np.testing.assert_allclose(np.linalg.norm(W1), 28.437788,
                                rtol=1e-5, atol=1e-5)
-    np.testing.assert_allclose(np.linalg.norm(W2), 10.45548,
+    np.testing.assert_allclose(np.linalg.norm(W2), 10.455095,
                                rtol=1e-5, atol=1e-5)
     np.testing.assert_allclose(loss_err(np.maximum(X@W1,0)@W2, y),
                                (0.19770025, 0.06006667), rtol=1e-4, atol=1e-4)

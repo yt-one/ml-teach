@@ -93,7 +93,7 @@ def softmax_loss(Z, y):
     ### 你的代码开始
     m, n_classes = Z.shape
 
-    zy = Z[y.reshape((-1,1)) == np.arange(n_classes)]
+    zy = Z[np.arange(m), y]
     log_sum = np.log(np.sum(np.exp(Z), axis=1))
 
     return np.sum(log_sum - zy) / m
@@ -118,9 +118,10 @@ def softmax_regression_epoch(X, y, theta, lr = 0.1, batch=100):
 
     ### 你的代码开始
     k = theta.shape[1]
-    for i in range(X.shape[0] // batch):
-        X_batch = X[i*batch:(i+1)*batch]
-        y_batch = y[i*batch:(i+1)*batch]
+    m = X.shape[0]
+    for i in range(0, m, batch):
+        X_batch = X[i : i + batch]
+        y_batch = y[i : i + batch]
         m = X_batch.shape[0]
 
         Z_batch = np.exp(np.dot(X_batch, theta))
@@ -155,9 +156,10 @@ def nn_epoch(X, y, W1, W2, lr = 0.1, batch=100):
     ### 你的代码开始
     k = W2.shape[1]
     eye_k = np.eye(k)
-    for i in range(X.shape[0] // batch):
-        X_batch = X[i * batch:(i + 1) * batch]
-        y_batch = y[i * batch:(i + 1) * batch]
+    total_sample = X.shape[0]
+    for i in range(0, total_sample, batch):
+        X_batch = X[i : i + batch]
+        y_batch = y[i : i + batch]
         m = X_batch.shape[0]
 
         # forward pass
